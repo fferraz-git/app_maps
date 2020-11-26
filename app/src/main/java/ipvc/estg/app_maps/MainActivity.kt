@@ -32,12 +32,15 @@ class MainActivity : AppCompatActivity() {
         passwordEditTextView = findViewById(R.id.login_password)
         submit_login_button = findViewById(R.id.submit_login_button)
 
+        //vai buscar o sharedpreferences
         val sharedPref: SharedPreferences = getSharedPreferences(
             getString(R.string.preference_file_key), Context.MODE_PRIVATE )
 
+        //
         val automatic_login_check = sharedPref.getBoolean(getString(R.string.automatic_login_check), false)
-        Log.d("SP_AutoLoginCheck", "$automatic_login_check")
+        //Log.d("SP_AutoLoginCheck", "$automatic_login_check")
 
+        //se verdade e pq ja tenho um user logado
         if( automatic_login_check ) {
             val intent = Intent(this@MainActivity, activity_maps1::class.java)
             startActivity(intent)
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         val username = usernameEditTextView.text.toString()
         val password = passwordEditTextView.text.toString()
 
+        //validaçoes se vazio
         if ( TextUtils.isEmpty(username) ) {
             Toast.makeText(this, R.string.fieldusernameemptylabel, Toast.LENGTH_LONG).show()
             return
@@ -60,19 +64,24 @@ class MainActivity : AppCompatActivity() {
         }
         else {
 
+            //fazer a ligaçao
             val request = ServiceBuilder.buildService(LoginEndPoints::class.java)
             val call = request.create(username, password)
 
             call.enqueue(object : Callback<LoginOutputPost> {
 
+                //metodo de onresponse
                 override fun onResponse(call: Call<LoginOutputPost>, response: Response<LoginOutputPost>) {
 
+                    //verifica se a comunicaçao foi bem sucedida
                     if (response.isSuccessful) {
                         val c: LoginOutputPost = response.body()!!
 
+                        //verifica se a resposta for do parametro sucess for veradadeira
                         if (c.success) {
                             Toast.makeText(this@MainActivity, R.string.logincorrectlabel, Toast.LENGTH_SHORT).show()
 
+                            // guarda os parametros todos no shared preferences para fazer o login automatico
                             val sharedPref: SharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE )
                             with ( sharedPref.edit() ) {
                                 putBoolean(getString(R.string.automatic_login_check), true)
@@ -81,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                                 commit()
                             }
 
+                            // muda para a ativadade dos mapas
                             val intent = Intent(this@MainActivity, activity_maps1::class.java)
                             startActivity(intent)
                             finish()

@@ -1,5 +1,8 @@
 package ipvc.estg.app_maps
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +19,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import ipvc.estg.app_maps.api.User
 import android.location.Geocoder
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.location.LocationRequest
 
@@ -78,6 +84,40 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
         createLocationRequest()
     }
 
+    //creates the top right menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.new_marker_btn -> { //botao para novo marcador, criar posicionamento auto, ligar os problemas aqui
+                true
+            }
+
+            //botao logout insere valores null nos campos, torna o check falso para nao iniciar o login automatico
+            R.id.logout_btn -> {
+                val sharedPref: SharedPreferences = getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE )
+                with ( sharedPref.edit() ) {
+                    putBoolean(getString(R.string.automatic_login_username), false )
+                    putString(getString(R.string.fieldusernameemptylabel), null )
+                    putString(getString(R.string.automatic_login_password), null )
+                    commit()
+                }
+
+                //volta a atividade login (Main)
+                val intent = Intent(this@activity_maps1, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -113,7 +153,7 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
             mMap.isMyLocationEnabled = true
             // 2
             fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
-                // Got last known location. In some rare situations this can be null.
+            // Got last known location. In some rare situations this can be null.
             // 3
                 if (location != null) {
                     lastLocation = location
@@ -157,13 +197,13 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
     override fun onPause() {
         super.onPause()
         fusedLocationClient.removeLocationUpdates(locationCallback)
-        Log.d("**** SARA", "onPause - removeLocationUpdates")
+        Log.d("**** ff", "onPause - removeLocationUpdates")
     }
 
     public override fun onResume() {
         super.onResume()
         startLocationUpdates()
-        Log.d("**** SARA", "onResume - startLocationUpdates")
+        Log.d("**** ff", "onResume - startLocationUpdates")
     }
 
     private fun getAddress(lat: Double, lng: Double): String {
