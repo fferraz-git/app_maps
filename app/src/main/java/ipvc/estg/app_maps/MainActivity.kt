@@ -1,89 +1,100 @@
 package ipvc.estg.app_maps
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import ipvc.estg.app_maps.adapter.UserAdapter
-import ipvc.estg.app_maps.api.EndPoints
-import ipvc.estg.app_maps.api.OutputPost
+import androidx.appcompat.app.AppCompatActivity
+import ipvc.estg.app_maps.api.LoginEndPoints
+import ipvc.estg.app_maps.api.LoginOutputPost
 import ipvc.estg.app_maps.api.ServiceBuilder
-import ipvc.estg.app_maps.api.User
-import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
 
-    // solve internet issue on emulator
-    // https://medium.com/@cafonsomota/android-emulator-when-theres-no-connection-to-the-internet-129e8b63b7ce'
+class MainActivity : AppCompatActivity() {
+    private lateinit var usernameEditTextView: EditText
+    private lateinit var passwordEditTextView: EditText
+    private lateinit var submit_login_button: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUsers()
+        usernameEditTextView = findViewById(R.id.login_username)
+        passwordEditTextView = findViewById(R.id.login_password)
+        submit_login_button = findViewById(R.id.submit_login_button)
 
-        call.enqueue(object : Callback<List<User>>{
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful){
-                    recyclerView.apply {
-                        setHasFixedSize(true)
-                        layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = UserAdapter(response.body()!!)
+        val sharedPref: SharedPreferences = getSharedPreferences(
+            getString(R.string.preference_file_key), Context.MODE_PRIVATE )
+
+        val automatic_login_check = sharedPref.getBoolean(getString(R.string.automatic_login_check), false)
+        Log.d("SP_AutoLoginCheck", "$automatic_login_check")
+
+        if( automatic_login_check ) {
+            val intent = Intent(this@MainActivity, activity_maps1::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    fun login( view: View) {
+
+        val username = usernameEditTextView.text.toString()
+        val password = passwordEditTextView.text.toString()
+
+        if ( TextUtils.isEmpty(username) ) {
+            Toast.makeText(this, R.string.fieldusernameemptylabel, Toast.LENGTH_LONG).show()
+            return
+        }
+        else if ( TextUtils.isEmpty(password) ) {
+            Toast.makeText(this, R.string.fieldpasswordemptylabel, Toast.LENGTH_LONG).show()
+            return
+        }
+        else {
+
+            val request = ServiceBuilder.buildService(LoginEndPoints::class.java)
+            val call = request.create(username, password)
+
+            call.enqueue(object : Callback<LoginOutputPost> {
+
+                override fun onResponse(call: Call<LoginOutputPost>, response: Response<LoginOutputPost>) {
+
+                    if (response.isSuccessful) {
+                        val c: LoginOutputPost = response.body()!!
+
+                        if (c.success) {
+                            Toast.makeText(this@MainActivity, R.string.logincorrectlabel, Toast.LENGTH_SHORT).show()
+
+                            val sharedPref: SharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE )
+                            with ( sharedPref.edit() ) {
+                                putBoolean(getString(R.string.automatic_login_check), true)
+                                putString(getString(R.string.automatic_login_username), username )
+                                putString(getString(R.string.automatic_login_password), password )
+                                commit()
+                            }
+
+                            val intent = Intent(this@MainActivity, activity_maps1::class.java)
+                            startActivity(intent)
+                            finish()
+
+                        } else {
+                            Toast.makeText(this@MainActivity, R.string.loginincorrectlabel, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-            }
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
-    fun getSingle(view: View) {
-
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.getUserById(2) // estaticamente o valor 2. deverá depois passar a ser dinamico
-
-        call.enqueue(object : Callback<User>{
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful){
-                    val c: User = response.body()!!
-                    Toast.makeText(this@MainActivity, c.address.zipcode, Toast.LENGTH_SHORT).show()
+                override fun onFailure(call: Call<LoginOutputPost>, t: Throwable) {
+                    Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
                 }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-    fun post(view: View) {
-
-        val request = ServiceBuilder.buildService(EndPoints::class.java)
-        val call = request.postTest("teste")
-
-        call.enqueue(object : Callback<OutputPost>{
-            override fun onResponse(call: Call<OutputPost>, response: Response<OutputPost>) {
-                if (response.isSuccessful){
-                    val c: OutputPost = response.body()!!
-                    Toast.makeText(this@MainActivity, c.id.toString() + "-" + c.title, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<OutputPost>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
-    fun map(view: View) {
-        val intent = Intent(this, MapsActivity::class.java).apply {
+            })
         }
-        startActivity(intent)
-
     }
 }

@@ -29,8 +29,9 @@ class UsersViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
     private val email:TextView = itemView.findViewById(R.id.email)
     private val city:TextView = itemView.findViewById(R.id.city)
 
+
     fun bind(user: User) {
-        name.text = user.name
+        //name.text = user.name
         city.text = user.address.city
         email.text = email.text
     }
