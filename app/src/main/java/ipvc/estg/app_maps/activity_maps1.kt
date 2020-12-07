@@ -50,6 +50,7 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         val viana = LatLng(41.691807, -8.834451)
@@ -62,6 +63,7 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
         inflater.inflate(R.menu.menu, menu)
         return true
     }
+
     fun setUpMap(){
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -76,9 +78,11 @@ class activity_maps1 : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent( this, marker::class.java)
                     intent.putExtra(marker.EXTRA_LOCAL, currentLatLng)
                     startActivity(intent)
-
                 }
-            }}}
+            }
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.new_marker_btn -> {

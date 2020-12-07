@@ -32,9 +32,13 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity_maps1"
-           >
+            android:name=".marker">
         </activity>
+
+        <activity
+            android:name=".activity_maps1">
+        </activity>
+
         <activity android:name=".Display_MainActivity">
         </activity>
 

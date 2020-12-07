@@ -1,17 +1,25 @@
 <resources>
-    <string name="app_name" translatable="false">Maps</string>
+    <string name="app_name" translatable="false">Trab4</string>
+    <string name="titulo">Titulo (Required)</string>
+    <string name="texto">Texto (Required)</string>
+    <string name="btnsave">Guardar</string>
+    <string name="btnedit">Editar</string>
+    <string name="update">Atualizar Nota</string>
+    <string name="delete">Apagar tudo</string>
+    <string name="preference_file_key" translatable="false">preference_file_key</string>
+    <string name="automatic_login_check" translatable="false">automatic_login_check</string>
     <string name="nextlabel">Next</string>
+    <string name="marker_texto">Descrição do marker</string>
     <string name="previouslabel">Previous</string>
     <string name="returnlabel">Return</string>
     <string name="createlabel">Create</string>
+    <string name="createuserlabel">Create new user</string>
     <string name="deletelabel">Delete</string>
     <string name="editlabel">Edit</string>
     <string name="titlelabel">Title</string>
     <string name="textlabel">Text</string>
     <string name="deleteallnoteslabel">Delete All Notes</string>
     <string name="fieldtitleemptylabel">Parameter Title is Empty</string>
-    <string name="preference_file_key" translatable="false">preference_file_key</string>
-    <string name="automatic_login_check" translatable="false">automatic_login_check</string>
     <string name="fieldtextemptylabel">Parameter Text is Empty</string>
     <string name="notecreatedlabel">Note Created</string>
     <string name="noupdatelabel">Note can\'t be Updated</string>
@@ -23,6 +31,8 @@
     <string name="usernamelabel" translatable="false">username</string>
     <string name="loginincorrectlabel">Login Failed</string>
     <string name="logincorrectlabel">Login Successful</string>
+    <string name="markerincorrectlabel">Marker Inserido</string>
+    <string name="markercorrectlabel">Marker Inserido</string>
     <string name="automatic_login_username" translatable="false">automatic_login_username</string>
     <string name="fieldusernameemptylabel">Parameter Username is Empty</string>
     <string name="fieldpasswordemptylabel">Parameter Password is Empty</string>
@@ -30,4 +40,12 @@
     <string name="logoutlabel" translatable="false">Logout</string>
     <string name="notesactivitylabel">Notes</string>
     <string name="mapactivitylabel">Map</string>
+
+
+    <string name="selected_item">Selected item:</string>
+    <string-array name="Types">
+        <item>Obras</item>
+        <item>Acidente</item>
+        <item>Outro</item>
+    </string-array>
 </resources>
