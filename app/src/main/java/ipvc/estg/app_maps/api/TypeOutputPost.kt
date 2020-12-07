@@ -1,5 +1,5 @@
 package ipvc.estg.app_maps.api
 
-class TypeOutputPost {
+class Tipo {
         val nome: String,
 }
