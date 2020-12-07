@@ -5,3 +5,7 @@ data class LoginOutputPost(
     val name: String,
     val msg : String
 )
+
+data class TicketOutputPost(
+    val success: Boolean
+)
