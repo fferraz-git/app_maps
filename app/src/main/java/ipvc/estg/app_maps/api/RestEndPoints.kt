@@ -14,7 +14,7 @@ interface RestEndPoints {
 
     @FormUrlEncoded
     @POST("/myslim/api/postTicket")
-    fun postTicket(@Field("id") ID: Int,
+    fun postTicket(@Field("id") id: Int,
                  @Field("type") type: Int,
                  @Field("lat") lat: String,
                  @Field("lng") lng: String): Call<RestOutputPost>

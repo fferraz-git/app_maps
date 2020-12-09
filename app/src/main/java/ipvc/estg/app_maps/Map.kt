@@ -102,15 +102,15 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                 override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                     if (response.isSuccessful) {
                         users = response.body()!!
-                        for (problems in users) {
+                        for (tickets in users) {
                             position = LatLng(
-                                problems.lat.toDouble(),
-                                problems.lng.toDouble()
+                                tickets.lat.toDouble(),
+                                tickets.lng.toDouble()
                             )
                             mMap.addMarker(
                                 MarkerOptions().position(position)
-                                    .title("Coordenadas: "+ problems.lat + " - " + problems.lng
-                                            + "/ Tipo de problema:" + problems.type)
+                                    .title("Coordenadas: "+ tickets.lat + " - " + tickets.lng
+                                            + "/ Tipo de ticket:" + tickets.type)
                             )
                         }
                     }
@@ -160,7 +160,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                     // Got last known location. In some rare situations this can be null.
                     if (location != null) {
                         lastLocation = location
-                        Toast.makeText(this@Map, lastLocation.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Map, lastLocation.toString(), Toast.LENGTH_LONG).show()
                         val currentLatLng = LatLng(location.latitude, location.longitude)
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
                     }
@@ -212,7 +212,9 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
         }
 
         override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
             super.onActivityResult(requestCode, resultCode, data)
+
             if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
                 Tipo = data?.getIntExtra(Type.EXTRA_REPLY, 0)!!
 
@@ -222,11 +224,12 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                 val request = ServiceBuilder.buildService(RestEndPoints::class.java)
                 val call = request.postTicket(Value,Tipo,lastLocation.latitude.toString(),lastLocation.longitude.toString())
 
+
                 call.enqueue(object : Callback<RestOutputPost> {
                     override fun onResponse(call: Call<RestOutputPost>, response: Response<RestOutputPost>) {
                         if (response.isSuccessful) {
                             val c: RestOutputPost = response.body()!!
-                            Toast.makeText(this@Map, c.MSG, Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@Map, c.msg, Toast.LENGTH_SHORT).show()
                         }
                     }
                     override fun onFailure(call: Call<RestOutputPost>, t: Throwable) {
@@ -234,7 +237,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                     }
                 })
 
-            } else if(requestCode == newWordActivityRequestCode2&& resultCode == Activity.RESULT_OK){
+            } else if(requestCode == newWordActivityRequestCode2 && resultCode == Activity.RESULT_OK){
                 Tipo = data?.getIntExtra(Type.EXTRA_REPLY, 0)!!
                 var position: LatLng
 
@@ -246,15 +249,15 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                         if (response.isSuccessful) {
                             mMap.clear();
                             users = response.body()!!
-                            for(problems in users) {
+                            for(tickets in users) {
                                 position = LatLng(
-                                    problems.lat.toDouble(),
-                                    problems.lng.toDouble()
+                                    tickets.lat.toDouble(),
+                                    tickets.lng.toDouble()
                                 )
                                 mMap.addMarker(
                                     MarkerOptions().position(position)
-                                        .title("Coordenadas: " + problems.lat + " - " + problems.lng +
-                                                "/ Tipo de problema:" + problems.type)
+                                        .title("Coordenadas: " + tickets.lat + " - " + tickets.lng +
+                                                "/ Tipo de ticket:" + tickets.type)
                                         .icon(
                                             BitmapDescriptorFactory.defaultMarker(
                                             BitmapDescriptorFactory.HUE_AZURE)))
@@ -267,7 +270,7 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                     }
                 })
 
-            }else if(requestCode == newWordActivityRequestCode3&& resultCode == Activity.RESULT_OK){
+            }else if(requestCode == newWordActivityRequestCode3 && resultCode == Activity.RESULT_OK){
 
                 val km = data?.getDoubleExtra(Type.EXTRA_REPLY, 0.0)!!
                 val meters = km * 1000
@@ -283,23 +286,24 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                         if (response.isSuccessful) {
                             users = response.body()!!
 
-                            for (problems in users) {
+                            for (tickets in users) {
                                 val dist = calculateDistance(lastLocation.latitude,
-                                    lastLocation.longitude,problems.lat.toDouble(),
-                                    problems.lng.toDouble())
+                                    lastLocation.longitude,tickets.lat.toDouble(),
+                                    tickets.lng.toDouble())
 
                                 println("diff "+dist)
 
                                 if(dist < meters){
                                     position = LatLng(
-                                        problems.lat.toDouble(),
-                                        problems.lng.toDouble())
+                                        tickets.lat.toDouble(),
+                                        tickets.lng.toDouble())
                                     mMap.addMarker(MarkerOptions().position(position)
-                                        .title("Coordenadas: "+ problems.lat + " - " + problems.lng
-                                                + "/ Tipo de problema:" + problems.type)
+                                        .title("Coordenadas: "+ tickets.lat + " - " + tickets.lng
+                                                + "/ Tipo de tickets:" + tickets.type)
                                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
                                 }
                             }
+
                             createLocationRequest()
                         }
                     }
@@ -370,16 +374,16 @@ class Map : AppCompatActivity(), OnMapReadyCallback {
                         override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                             if (response.isSuccessful) {
                                 users = response.body()!!
-                                for (problems in users) {
+                                for (tickets in users) {
                                     position = LatLng(
-                                        problems.lat.toDouble(),
-                                        problems.lng.toDouble()
+                                        tickets.lat.toDouble(),
+                                        tickets.lng.toDouble()
                                     )
                                     mMap.addMarker(
-                                        MarkerOptions().position(position)
-                                            .title("Coordenadas: "+ problems.lat + " - " +
-                                                    problems.lng + "/ Tipo de problema:" +
-                                                    problems.type)
+                                        MarkerOptions().position(position).title("Coordenadas: "+
+                                                    tickets.lat + " - " +
+                                                    tickets.lng + "/ Tipo de tickets:" +
+                                                    tickets.type)
                                     )
                                 }
                             }
