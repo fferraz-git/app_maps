@@ -48,7 +48,9 @@ class Main : AppCompatActivity() {
     fun login(view:View) {
 
         val username = usernameEditTextView.text.toString()
-        val password = passwordEditTextView.text.toString()
+        val password = passwordEditTextView.text.toString().sha256()
+
+        println(password)
 
         if ( TextUtils.isEmpty(username) ) {
             Toast.makeText(this, R.string.User_miss, Toast.LENGTH_LONG).show()
@@ -92,5 +94,62 @@ class Main : AppCompatActivity() {
                 }
             })
         }
+    }
+
+
+/*
+    fun create_user(view: View) {
+        val username = usernameEditTextView.text.toString()
+        val password = passwordEditTextView.text.toString().sha256()
+
+        if ( TextUtils.isEmpty(username) ) {
+            Toast.makeText(this, R.string.fieldusernameemptylabel, Toast.LENGTH_LONG).show()
+            return
+        }
+        else if ( TextUtils.isEmpty(password) ) {
+            Toast.makeText(this, R.string.fieldpasswordemptylabel, Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val request = ServiceBuilder.buildService(LoginEndPoints::class.java)
+        val call = request.LoginCreate(
+            username,
+            password
+        )
+        call.enqueue(object : Callback<LoginOutputPost> {
+            override fun onResponse(call: Call<LoginOutputPost>, response: Response<LoginOutputPost>)
+            {
+                if (response.isSuccessful) {
+                    val c: LoginOutputPost = response.body()!!
+                    if (c.success) {
+                        Toast.makeText(this@Main,R.string.logincorrectlabel, Toast.LENGTH_SHORT).show()
+                        val sharedPref: SharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE )
+                        with ( sharedPref.edit() ) {
+                            putBoolean(getString(R.string.automatic_login), true)
+                            putString(getString(R.string.username_login), username )
+                            commit()
+                        }
+                        val intent = Intent(this@Main, Map::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else Toast.makeText(this@Main,R.string.loginincorrectlabel, Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun onFailure(call: Call<LoginOutputPost>, t: Throwable) {
+                Toast.makeText(this@Main, "${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+
+    }*/
+    
+    fun String.sha256(): String {
+        return hashString(this, "SHA-256")
+    }
+    private fun hashString(input:String, algorithm:String): String{
+        return MessageDigest
+            .getInstance(algorithm)
+            .digest(input.toByteArray())
+            .fold("",{str,it->str + "%02x".format(it)})
     }
 }
