@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mapa</string>
+    <string name="Ins">Inserir</string>
+    <string name="Rem">Remover</string>
+    <string name="Edi">Editar</string>
+    <string name="Tit">Insira um título:</string>
+    <string name="Tex">Insira uma nota:</string>
+    <string name="Id">Insira um ID:</string>
+    <string name="RemAll">Apagar todas</string>
+    <string name="Save">Guardar</string>
+    <string name="NoteDel">Nota apagada com sucesso</string>
+    <string name="AllDel">Todas as notas apagadas com sucesso</string>
+    <string name="Empty">Campos vazios</string>
+    <string name="NoteEdit">Nota editada com sucesso</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="User_miss">Campo user vazio</string>
+    <string name="Pass_miss">Campo password vazio</string>
+    <string name="Login_miss">Login incorreto</string>
+    <string name="Login">Bem-vindo</string>
+    <string name="LoginBTN">Login</string>
+    <string name="NotesBTN">Notas</string>
+    <string name="Logout">Sair</string>
+    <string name="Update">Atualizar</string>
+    <string name="type">Insira um tipo (numero):</string>
+    <string name="accident">1- Acidente</string>
+    <string name="construction">2- Obras</string>
+    <string name="signage">3- Falta de sinalização</string>
+    <string name="SemMarker">Sem marcador desse tipo</string>
+    <string name="FilterDistance">Filtrar por distância</string>
+    <string name="Reset">Resetar pontos</string>
+    <string name="FilterType">Filtrar por tipo</string>
+    <string name="Dist">Distância (Km)</string>
+    <string name="usernamelabel">Nome</string>
+    <string name="passwordlabel">Password</string>
+    <string name="loginlabel">Login</string>
+</resources>

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/new_marker_btn"
-        android:title="Novo marker"
-        app:showAsAction="ifRoom"
-        />
-
-    <item
-        android:id="@+id/logout_btn"
-        android:title="@string/logoutlabel"
-        app:showAsAction="never"
-        />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/btn3"
+        android:title="@string/Logout">
+    </item>
+    <item android:id="@+id/btn4"
+        android:title="@string/Ins">
+    </item>
+    <item android:id="@+id/btn5"
+        android:title="@string/FilterType">
+    </item>
+    <item android:id="@+id/btn6"
+        android:title="@string/FilterDistance">
+    </item>
+    <item android:id="@+id/btn7"
+        android:title="@string/Reset">
+    </item>
 </menu>

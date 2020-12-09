@@ -2,10 +2,12 @@ package ipvc.estg.app_maps.api
 
 data class LoginOutputPost(
     val success: Boolean,
-    val name: String,
+    val data: data,
     val msg : String
 )
 
-data class TicketOutputPost(
-    val success: Boolean
+data class data(
+    val ID: Int,
+    val name: String,
+    val password: String
 )

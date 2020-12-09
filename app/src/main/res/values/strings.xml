@@ -1,51 +1,40 @@
 <resources>
-    <string name="app_name" translatable="false">Trab4</string>
-    <string name="titulo">Titulo (Required)</string>
-    <string name="texto">Texto (Required)</string>
-    <string name="btnsave">Guardar</string>
-    <string name="btnedit">Editar</string>
-    <string name="update">Atualizar Nota</string>
-    <string name="delete">Apagar tudo</string>
+    <string name="app_name">Maps</string>
+    <string name="Ins">Insert</string>
+    <string name="Rem">Remove</string>
+    <string name="Edi">Edit</string>
+    <string name="Tit">Enter a title:</string>
+    <string name="Tex">Enter a note:</string>
+    <string name="Id">Enter a ID:</string>
+    <string name="RemAll">"Delete all "</string>
+    <string name="Save">Save</string>
+    <string name="NoteDel">Note deleted with success</string>
+    <string name="AllDel">All notes deleted with success</string>
+    <string name="Empty">Empty fields</string>
+    <string name="NoteEdit">Note edit with success</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="User_miss">User field empty</string>
+    <string name="Pass_miss">Password field empty</string>
+    <string name="Login_miss">Incorrect login</string>
+    <string name="Login">Welcome</string>
+    <string name="LoginBTN">Login</string>
+    <string name="NotesBTN">Notes</string>
     <string name="preference_file_key" translatable="false">preference_file_key</string>
-    <string name="automatic_login_check" translatable="false">automatic_login_check</string>
-    <string name="nextlabel">Next</string>
-    <string name="marker_texto">Descrição do marker</string>
-    <string name="previouslabel">Previous</string>
-    <string name="returnlabel">Return</string>
-    <string name="createlabel">Create</string>
-    <string name="createuserlabel">Create new user</string>
-    <string name="deletelabel">Delete</string>
-    <string name="editlabel">Edit</string>
-    <string name="titlelabel">Title</string>
-    <string name="textlabel">Text</string>
-    <string name="deleteallnoteslabel">Delete All Notes</string>
-    <string name="fieldtitleemptylabel">Parameter Title is Empty</string>
-    <string name="fieldtextemptylabel">Parameter Text is Empty</string>
-    <string name="notecreatedlabel">Note Created</string>
-    <string name="noupdatelabel">Note can\'t be Updated</string>
-    <string name="noteupdatedlabel">Note Updated</string>
-    <string name="notedeletelabel">Note Deleted</string>
-    <string name="loginlabel" translatable="false">Login</string>
-    <string name="shownoteslabel">Show Notes</string>
-    <string name="passwordlabel" translatable="false">password</string>
-    <string name="usernamelabel" translatable="false">username</string>
-    <string name="loginincorrectlabel">Login Failed</string>
-    <string name="logincorrectlabel">Login Successful</string>
-    <string name="markerincorrectlabel">Marker Inserido</string>
-    <string name="markercorrectlabel">Marker Inserido</string>
-    <string name="automatic_login_username" translatable="false">automatic_login_username</string>
-    <string name="fieldusernameemptylabel">Parameter Username is Empty</string>
-    <string name="fieldpasswordemptylabel">Parameter Password is Empty</string>
-    <string name="automatic_login_password" translatable="false">automatic_login_password</string>
-    <string name="logoutlabel" translatable="false">Logout</string>
-    <string name="notesactivitylabel">Notes</string>
-    <string name="mapactivitylabel">Map</string>
-
-
-    <string name="selected_item">Selected item:</string>
-    <string-array name="Types">
-        <item>Obras</item>
-        <item>Acidente</item>
-        <item>Outro</item>
-    </string-array>
+    <string name="username_login" translatable="false">username_login</string>
+    <string name="id_login" translatable="false">id_login</string>
+    <string name="automatic_login" translatable="false">automatic_login</string>
+    <string name="Logout">Logout</string>
+    <string name="Update">Update</string>
+    <string name="type">Insert a type (number):</string>
+    <string name="accident">1- Accident</string>
+    <string name="construction">2- Construction</string>
+    <string name="signage">3- Lack of signage</string>
+    <string name="SemMarker">No marker for that type</string>
+    <string name="Reset">Reset all markers</string>
+    <string name="FilterType">Filter by type</string>
+    <string name="FilterDistance">"Filter by distance "</string>
+    <string name="Dist">Distance (Km)</string>
+    <string name="usernamelabel">Username</string>
+    <string name="passwordlabel">Password</string>
+    <string name="loginlabel">Login</string>
 </resources>
